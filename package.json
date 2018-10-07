@@ -8,7 +8,7 @@
   "main": "dist/index.js",
   "types": "src/types.d.ts",
   "module": "dist/index.es.js",
-  "jsnext:main": "src/index.js",
+  "jsnext:main": "dist/index.es.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5"
