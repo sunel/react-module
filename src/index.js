@@ -1,22 +1,9 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import Application from './Application'
 
-import styles from './styles.css'
-
-export default class ExampleComponent extends Component {
-  static propTypes = {
-    text: PropTypes.string
-  }
-
-  render() {
-    const {
-      text
-    } = this.props
-
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
-  }
+export const run = (Module, isDev = false) => {
+  return Application.create(Module, isDev).run()
 }
+
+export { default as RouterOutlet } from './containers/RouterOutlet'
+export { default as Link } from './Link'
+export { default as Module } from './Module'

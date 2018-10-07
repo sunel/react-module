@@ -10,6 +10,10 @@
 npm install --save react-module
 ```
 
+```bash
+yarn add --save react-module
+```
+
 ## Usage
 
 ```jsx

@@ -6,8 +6,9 @@
   "license": "MIT",
   "repository": "sunel/react-module",
   "main": "dist/index.js",
+  "types": "src/types.d.ts",
   "module": "dist/index.es.js",
-  "jsnext:main": "dist/index.es.js",
+  "jsnext:main": "src/index.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5"
@@ -56,5 +57,13 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "history": "^4.7.2",
+    "lodash.camelcase": "^4.3.0",
+    "lodash.foreach": "^4.5.0",
+    "lodash.isempty": "^4.4.0",
+    "path-to-regexp": "^2.4.0",
+    "qs": "^6.5.2"
+  }
 }
