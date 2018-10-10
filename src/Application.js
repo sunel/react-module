@@ -1,6 +1,9 @@
 import React from 'react'
 import ApplicationContainer from './containers/ApplicationContainer'
 import Router from './Router'
+import ReducerRegistry from './registry/ReducerRegistry'
+import SagaRegistry from './registry/SagaRegistry'
+import configureStore from './Store'
 import { assertModule } from './Module'
 
 export default class Application {
@@ -9,6 +12,9 @@ export default class Application {
   loadedProviders = new Map()
   app$
   router$
+  store$
+  reducerReg$
+  sagaReg$
 
   constructor(rootModule, isDev = false) {
     assertModule(rootModule)
@@ -23,6 +29,13 @@ export default class Application {
 
   init() {
     this.router$ = new Router()
+    this.reducerReg$ = new ReducerRegistry()
+    this.sagaReg$ = new SagaRegistry()
+  }
+
+  setUpStore() {
+    this.store$ = configureStore({}, this.reducerReg$.reducers)
+    this.sagaReg$.store = this.store$
   }
 
   register() {
@@ -31,6 +44,7 @@ export default class Application {
   }
 
   boot() {
+    this.setUpStore()
     this.providers.forEach((Mod, key) => {
       Mod.boot()
     })
@@ -39,7 +53,10 @@ export default class Application {
 
   run() {
     return (
-      <ApplicationContainer router={this.router$} notFound={this.rootModule.notFound}>
+      <ApplicationContainer
+        store={this.store$}
+        router={this.router$}
+        notFound={this.rootModule.notFound} >
         {this.rootModule.render()}
       </ApplicationContainer>
     )

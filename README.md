@@ -7,11 +7,11 @@
 ## Install
 
 ```bash
-npm install --save react-module
+npm install --save @react-module/react-module
 ```
 
 ```bash
-yarn add --save react-module
+yarn add --save @react-module/react-module
 ```
 
 ## Usage
@@ -19,7 +19,7 @@ yarn add --save react-module
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-module'
+import MyComponent from '@react-module/react-module'
 
 class Example extends Component {
   render () {

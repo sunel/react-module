@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { Provider } from 'react-redux'
 import Router from '../Router'
 import { RouterProvider } from '../context/Router'
 import { LinkProvider } from '../context/Link'
@@ -7,6 +8,7 @@ import { LinkProvider } from '../context/Link'
 export default class ApplicationContainer extends PureComponent {
     static propTypes = {
       router: PropTypes.object,
+      store: PropTypes.object,
       notFound: PropTypes.func,
       children: PropTypes.element
     }
@@ -16,7 +18,8 @@ export default class ApplicationContainer extends PureComponent {
 
     constructor(props) {
       super(props)
-      this.router = this.props.router
+      this.router = props.router
+      this.store = props.store
       this.state = this.getInitialState()
     }
 
@@ -54,11 +57,13 @@ export default class ApplicationContainer extends PureComponent {
 
     render() {
       return (
-        <RouterProvider value={this.state}>
-          <LinkProvider value={this.router}>
-            {this.props.children}
-          </LinkProvider>
-        </RouterProvider>
+        <Provider store={this.store}>
+          <RouterProvider value={this.state}>
+            <LinkProvider value={this.router}>
+              {this.props.children}
+            </LinkProvider>
+          </RouterProvider>
+        </Provider>
       )
     }
 }

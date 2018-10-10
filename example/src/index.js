@@ -1,7 +1,11 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom';
+import { run } from 'react-module';
+import AppModule from './modules/App'
 
-import './index.css'
-import App from './App'
+import './index.css';
 
-ReactDOM.render(<App />, document.getElementById('root'))
+render(
+    run(AppModule, process.env.NODE_ENV === 'production'), 
+    document.getElementById('root')
+);
+

@@ -11,8 +11,7 @@ export const assertModule = (obj) => {
 
 export default class Module {
   registers = [
-    'routes', 'actions', 'reducer',
-    'sagas', 'selectors'
+    'routes', 'reducer', 'sagas'
   ]
 
   provides = {}
@@ -32,9 +31,8 @@ export default class Module {
       }
     })
     forEach(this.provides, (Mod, key) => {
-      assertModule(Mod)
-      const otherModule = new Mod(this.app$)
-      otherModule.register()
+      assertModule(Mod);
+      (new Mod(this.app$)).register()
     })
     return this
   }
@@ -46,19 +44,11 @@ export default class Module {
     this.routes(this.app$.router$)
   }
 
-  registerActions() {
-    this.actions(this.app$.router$)
-  }
-
   registerReducer() {
-    this.reducer(this.app$.router$)
+    this.reducer(this.app$.reducerReg$)
   }
 
   registerSagas() {
-    this.sagas(this.app$.router$)
-  }
-
-  registerSelectors() {
-    this.selectors(this.app$.router$)
+    this.sagas(this.app$.sagaReg$)
   }
 }
