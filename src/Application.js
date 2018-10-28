@@ -9,7 +9,6 @@ import { assertModule } from './Module'
 export default class Application {
   rootModule
   providers = new Map()
-  loadedProviders = new Map()
   app$
   router$
   store$
@@ -35,7 +34,7 @@ export default class Application {
 
   setUpStore() {
     this.store$ = configureStore({}, this.reducerReg$.reducers)
-    this.sagaReg$.store = this.store$
+    this.store$.runSaga(this.sagaReg$.sagas)
   }
 
   register() {
@@ -64,6 +63,5 @@ export default class Application {
 
   markAsRegistered(provider) {
     this.providers.set(provider.constructor.name, provider)
-    this.loadedProviders.set(provider.constructor.name, true)
   }
 }

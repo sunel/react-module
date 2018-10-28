@@ -1,20 +1,18 @@
-export default class SagaRegistry {
-    _sagas = {};
-    _store;
+import { all } from 'redux-saga/effects'
 
-    get store() {
-      return this._store
-    }
-    set store(value) {
-      this._store = value
-    }
+export default class SagaRegistry {
+    _sagas = {}
 
     get sagas() {
-      return this._sagas
+      function * rootSaga() {
+        yield all(this._sagas)
+      }
+
+      return rootSaga.bind(this)
     }
 
     add(name, saga) {
-      this._sagas[name] = this.store.runSaga(saga)
+      this._sagas[name] = saga
     }
 
     remove(name) {
